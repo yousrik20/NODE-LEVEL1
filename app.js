@@ -8,37 +8,41 @@ app.set("view engine", "ejs");
 app.use(express.static('public'))
 
 // auto refresh to apply static file changes CSS, JS, IMG...
-const path = require("path");
-const livereload = require("livereload");
-const liveReloadServer = livereload.createServer();
-liveReloadServer.watch(path.join(__dirname, 'public'));
+
+//const path = require("path");
+//const livereload = require("livereload");
+//const liveReloadServer = livereload.createServer();
+//liveReloadServer.watch(path.join(__dirname, 'public'));
  
  
-const connectLivereload = require("connect-livereload");
-app.use(connectLivereload());
+//const connectLivereload = require("connect-livereload");
+//app.use(connectLivereload());
  
-liveReloadServer.server.once("connection", () => {
-  setTimeout(() => {
-    liveReloadServer.refresh("/");
-  }, 100);
-});
+//liveReloadServer.server.once("connection", () => {
+  //setTimeout(() => {
+    //liveReloadServer.refresh("/");
+ // }, 100);
+//});
 
 
 
 app.get("/", (req, res) => {
-  Mydata.find()
-    .then((result) => {
-      res.render("home", { mytitle: "Home Page" ,arr: result  });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  res.render("index");
 });
 
-app.get("/index.html", (req, res) => {
-  res.send("<h1>Data sended Successfully!</h1>");
+app.get("/user/add.html", (req, res) => {
+  res.render("./user/add");
 });
 
+app.get("/user/view.html", (req, res) => {
+  res.render("./user/view");
+});
+
+app.get("/user/edit.html", (req, res) => {
+  res.render("./user/edit");
+});
+
+// Database part
 mongoose
   .connect(
     "mongodb+srv://yousrike13_db_user:n9dgHsnEiJNT0xP0@cluster0.wezwbsz.mongodb.net/all-data?appName=Cluster0"
@@ -52,15 +56,3 @@ mongoose
     console.log(err);
   });
 
-app.post("/", (req, res) => {
-  console.log(req.body);
-  const mydata = new Mydata(req.body);
-  mydata
-    .save()
-    .then(() => {
-      res.redirect("/index.html");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
