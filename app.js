@@ -3,7 +3,7 @@ const app = express();
 const port = 3001;
 const mongoose = require("mongoose");
 app.use(express.urlencoded({ extended: true }));
-const Mydata = require("./models/mydataSchema");
+const User = require("./models/customerSchema");
 app.set("view engine", "ejs");
 app.use(express.static('public'))
 
@@ -25,7 +25,7 @@ app.use(express.static('public'))
 //});
 
 
-
+// Get Requests
 app.get("/", (req, res) => {
   res.render("index");
 });
@@ -41,6 +41,20 @@ app.get("/user/view.html", (req, res) => {
 app.get("/user/edit.html", (req, res) => {
   res.render("./user/edit");
 });
+
+// Post Requests
+app.post("/user/add.html", (req, res) => {
+  const user = new User(req.body);
+
+  user
+    .save()
+    .then(() => {
+      res.send("User added successfully!");
+    })
+    .catch((err) => {
+      res.status(500).send("Error adding user: " + err);
+    });
+})
 
 // Database part
 mongoose
