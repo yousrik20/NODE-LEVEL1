@@ -5,11 +5,12 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   firstName:String,
   lastName:String,
+  gender:String,
   email:String,
-  phone:String,
+  phoneNumber:String,
   age:Number,
   country:String,
-  gender:String
+  
 });
 
 // Create a model based on that schema

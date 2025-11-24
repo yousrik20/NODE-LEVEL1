@@ -3,7 +3,7 @@ const app = express();
 const port = 3001;
 const mongoose = require("mongoose");
 app.use(express.urlencoded({ extended: true }));
-const User = require("./models/customerSchema");
+const User = require("./models/customerSchema.js");
 app.set("view engine", "ejs");
 app.use(express.static('public'))
 
@@ -24,6 +24,17 @@ app.use(express.static('public'))
  // }, 100);
 //});
 
+app.get("/", (req, res) => {
+  console.log("--------------------");
+  User.find()
+    .then((result) => {
+      res.render("index",{arr:result});
+    })
+    .catch((err) => {
+      res.status(500).send("Error retrieving users: " + err);
+    });   
+    
+  });
 
 // Get Requests
 app.get("/", (req, res) => {
@@ -49,12 +60,14 @@ app.post("/user/add.html", (req, res) => {
   user
     .save()
     .then(() => {
-      res.send("User added successfully!");
+      res.redirect("/") ;
     })
     .catch((err) => {
       res.status(500).send("Error adding user: " + err);
     });
 })
+
+
 
 // Database part
 mongoose
