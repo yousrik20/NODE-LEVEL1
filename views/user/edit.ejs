@@ -49,10 +49,11 @@
           </p>
         </nav>
 
-        <form class="mx-0 row gx-3 gy-4 mt-2">
+        <form action="/edit/<%= obj._id %>?_method=PUT" method="post" class="mx-0 row gx-3 gy-4 mt-2">
           <div class="col-md-6">
             <label for="inputfirstName4" class="form-label">First Name:</label>
             <input
+            name="firstName"
             value="<%= obj.firstName %>"  
             type="text"
               class="form-control"
@@ -62,6 +63,7 @@
           <div class="col-md-6">
             <label for="inputlastName4" class="form-label">Last Name:</label>
             <input
+            name="lastName"
             value="<%= obj.lastName %>"
               type="text"
               class="form-control"
@@ -72,6 +74,7 @@
           <div class="col-md-6">
             <label for="inputemail4" class="form-label">Email:</label>
             <input
+            name="email"
             value="<%= obj.email %>"
               type="email"
               class="form-control"
@@ -81,6 +84,7 @@
           <div class="col-md-6">
             <label for="inputtele4" class="form-label">Telephone:</label>
             <input
+            name="phoneNumber"
             value="<%= obj.phoneNumber %>"
               type="number"
               class="form-control"
@@ -92,6 +96,7 @@
             <div class="col-md-6">
               <label for="inputage4" class="form-label">Age:</label>
               <input
+              name="age"
               value="<%= obj.age %>"
                 type="number"
                 class="form-control"
@@ -103,7 +108,7 @@
           <div>
             <div class="col-md-6">
               <label for="inputCountry" class="form-label">Country:</label>
-              <select id="inputCountry" class="form-select">
+              <select name="country" id="inputCountry" class="form-select">
                 <option hidden disabled>Choose here ...</option>
 
 
@@ -118,7 +123,7 @@
           <div>
             <div class="col-md-6">
               <label for="inputGender" class="form-label">Gender:</label>
-              <select id="inputGender" class="form-select">
+              <select name="gender" id="inputGender" class="form-select">
                 <option  hidden disabled>Choose here ...</option>
                 <option <%= "Male" === obj.gender ? "selected" : null %>>Male</option>
                 <option <%= "Female" === obj.gender ? "selected" : null %>>Female</option>
