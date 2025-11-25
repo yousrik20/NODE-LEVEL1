@@ -77,6 +77,18 @@ app.post("/user/add.html", (req, res) => {
     });
 });
 
+app.post("/search", (req, res) => {
+  const searchText = req.body.searchText.trim();
+  User.find({$or:[{firstName:searchText},{lastName:searchText}]})
+    .then((result) => {
+      console.log(result);
+      res.render("user/search", { arr: result, moment: moment });
+    })
+    .catch((err) => {
+      res.status(500).send("Error adding user: " + err);
+    });
+});
+
 // Delete Request
 
 app.delete("/edit/:id", (req, res) => {
